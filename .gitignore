@@ -1,0 +1,21 @@
+# For Node.js projects
+node_modules/
+npm-debug.log
+
+# For Python projects
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# VS Code specific files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Other common files to ignore
+.DS_Store
+*.log

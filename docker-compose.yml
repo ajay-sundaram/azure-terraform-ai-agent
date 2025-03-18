@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  terraform-agent:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    volumes:
+      - terraform-data:/root/.terraform.d
+    restart: unless-stopped
+
+volumes:
+  terraform-data:
