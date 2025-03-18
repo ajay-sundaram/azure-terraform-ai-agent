@@ -16,48 +16,6 @@ azure-terraform-ai-agent/
     └── index.html            # HTML template
 ```
 
-## Step 1: Prepare Azure OpenAI
-
-1. **Create an Azure OpenAI resource**:
-   - Navigate to the [Azure Portal](https://portal.azure.com)
-   - Search for "Azure OpenAI"
-   - Create a new OpenAI resource
-   - Note the endpoint URL
-
-2. **Deploy a model**:
-   - In your Azure OpenAI resource, go to "Model deployments"
-   - Deploy a GPT-4 or GPT-3.5-Turbo model
-   - Name your deployment (e.g., "gpt-4")
-   - Copy the deployment name
-
-3. **Get API credentials**:
-   - In your Azure OpenAI resource, go to "Keys and Endpoint"
-   - Copy one of the keys (KEY1 or KEY2)
-   - Note your endpoint URL
-
-## Step 2: Set Up Azure Authentication
-
-You need Azure credentials for Terraform to deploy resources:
-
-1. **Service Principal (recommended)**:
-   ```bash
-   az login
-   az account set --subscription "Your Subscription Name"
-   az ad sp create-for-rbac --name "TerraformAIAgent" --role Contributor
-   ```
-   
-   Note the output values:
-   - `appId` is your AZURE_CLIENT_ID
-   - `password` is your AZURE_CLIENT_SECRET
-   - `tenant` is your AZURE_TENANT_ID
-
-2. **Get Subscription ID**:
-   ```bash
-   az account show --query id -o tsv
-   ```
-   This is your AZURE_SUBSCRIPTION_ID
-
-## Step 3: Install Dependencies
 
 1. **Create a virtual environment**:
    ```bash
@@ -69,34 +27,6 @@ You need Azure credentials for Terraform to deploy resources:
    ```bash
    pip install -r requirements.txt
    ```
-
-## Step 4: Configure Environment
-
-Create a `.env` file with your credentials:
-
-```
-# Azure OpenAI configuration
-AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com/
-AZURE_OPENAI_API_KEY=your_azure_openai_api_key_here
-AZURE_OPENAI_API_VERSION=2023-05-15
-AZURE_OPENAI_DEPLOYMENT=your-deployment-name
-
-# Azure configuration
-AZURE_SUBSCRIPTION_ID=your_subscription_id_here
-AZURE_TENANT_ID=your_tenant_id_here
-AZURE_CLIENT_ID=your_client_id_here
-AZURE_CLIENT_SECRET=your_client_secret_here
-
-# Flask configuration
-FLASK_SECRET_KEY=generate_a_random_secret_key
-FLASK_DEBUG=False
-```
-
-You can generate a random secret key with:
-```python
-import os
-print(os.urandom(24).hex())
-```
 
 ## Step 5: Install Terraform
 
@@ -141,14 +71,6 @@ When you interact with the agent, it may determine it needs more information:
    - Use the buttons to validate, plan, apply, or destroy
 
 ## Troubleshooting
-
-### Connection Issues
-
-If you can't connect to Azure OpenAI:
-- Verify your endpoint URL ends with a trailing slash
-- Check that your API key is correct
-- Ensure your deployment name exists and is active
-- Try using the API version parameter: `AZURE_OPENAI_API_VERSION=2023-05-15`
 
 ### Missing Fields Not Appearing
 
